@@ -23,6 +23,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
+            df=pd.read_csv(os.path.join('notebook/data','raw.csv'))
             # 1. Reading the data from MySQL
             df = read_sql_data()
             logging.info("Reading completed from MySQL database")
