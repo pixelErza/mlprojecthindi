@@ -6,4 +6,10 @@ pymysql
 scikit-learn
 seaborn
 catboost
+xgboost
+Flask
+mlflow==2.2.2
+dill
+mlflow
+dagshub
 #-e .

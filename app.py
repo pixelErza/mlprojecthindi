@@ -2,6 +2,10 @@ from src.mlproject.logger import logging
 from src.mlproject.exception import Custom_Exception
 from src.mlproject.components.data_ingestion import DataIngestion
 from src.mlproject.components.data_transformation import DataTransformation
+from src.mlproject.components.data_transformation import DataTransformationConfig,DataTransformation
+
+from src.mlproject.components.model_trainer import ModelTrainerConfig
+from src.mlproject.components.model_trainer import ModelTrainer
 
 import sys
 
@@ -24,6 +28,8 @@ if __name__ == "__main__":
             train_data,
             test_data
         )
+        model_trainer=ModelTrainer()
+        print(model_trainer.initiate_model_trainer(train_arr,test_arr))
 
         logging.info("Data transformation completed")
 

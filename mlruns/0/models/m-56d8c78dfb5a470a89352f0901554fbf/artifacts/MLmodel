@@ -1,0 +1,23 @@
+artifact_path: /Users/arpitanaphade/Desktop/ml /mlruns/0/models/m-56d8c78dfb5a470a89352f0901554fbf/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.12.0
+model_id: m-56d8c78dfb5a470a89352f0901554fbf
+model_size_bytes: 723
+model_uuid: m-56d8c78dfb5a470a89352f0901554fbf
+prompts: null
+run_id: 313e1655ad584714af0469d2c6a4a392
+utc_time_created: '2026-05-11 09:11:26.541869'
