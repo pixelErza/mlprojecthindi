@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prediction</title>
+</head>
+
+<body>
+
+    <h1>Student Exam Performance Predictor</h1>
+
+    <form action="/predictdata" method="post">
+
+        <label>Gender</label>
+        <input type="text" name="gender" required>
+
+        <br><br>
+
+        <label>Race Ethnicity</label>
+        <input type="text" name="race_ethnicity" required>
+
+        <br><br>
+
+        <label>Parental Education</label>
+        <input type="text" name="parental_level_of_education" required>
+
+        <br><br>
+
+        <label>Lunch</label>
+        <input type="text" name="lunch" required>
+
+        <br><br>
+
+        <label>Test Preparation Course</label>
+        <input type="text" name="test_preparation_course" required>
+
+        <br><br>
+
+        <label>Reading Score</label>
+        <input type="number" name="reading_score" required>
+
+        <br><br>
+
+        <label>Writing Score</label>
+        <input type="number" name="writing_score" required>
+
+        <br><br>
+
+        <button type="submit">
+            Predict Math Score
+        </button>
+
+    </form>
+
+    <h2>
+        Prediction: {{ results }}
+    </h2>
+
+</body>
+
+</html>

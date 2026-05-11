@@ -1,40 +1,73 @@
-from src.mlproject.logger import logging
-from src.mlproject.exception import Custom_Exception
-from src.mlproject.components.data_ingestion import DataIngestion
-from src.mlproject.components.data_transformation import DataTransformation
-from src.mlproject.components.data_transformation import DataTransformationConfig,DataTransformation
+from flask import Flask, request, render_template
 
-from src.mlproject.components.model_trainer import ModelTrainerConfig
-from src.mlproject.components.model_trainer import ModelTrainer
+from src.mlproject.pipelines.predict_pipeline import (
+    PredictPipeline,
+    CustomData
+)
 
-import sys
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+
+    return render_template("index.html")
+
+
+@app.route("/predictdata", methods=["GET", "POST"])
+def predict_data():
+
+    if request.method == "GET":
+
+        return render_template("home.html")
+
+    else:
+
+        data = CustomData(
+
+            gender=request.form.get("gender"),
+
+            race_ethnicity=request.form.get(
+                "race_ethnicity"
+            ),
+
+            parental_level_of_education=request.form.get(
+                "parental_level_of_education"
+            ),
+
+            lunch=request.form.get("lunch"),
+
+            test_preparation_course=request.form.get(
+                "test_preparation_course"
+            ),
+
+            reading_score=float(
+                request.form.get(
+                    "reading_score"
+                )
+            ),
+
+            writing_score=float(
+                request.form.get(
+                    "writing_score"
+                )
+            )
+        )
+
+        pred_df = data.get_data_as_data_frame()
+
+        predict_pipeline = PredictPipeline()
+
+        results = predict_pipeline.predict(
+            pred_df
+        )
+
+        return render_template(
+            "home.html",
+            results=results[0]
+        )
+
 
 if __name__ == "__main__":
 
-    logging.info("The execution has started")
-
-    try:
-        # Data Ingestion
-        data_ingestion = DataIngestion()
-
-        train_data, test_data = data_ingestion.initiate_data_ingestion()
-
-        logging.info("Data ingestion completed")
-
-        # Data Transformation
-        data_transformation = DataTransformation()
-
-        train_arr, test_arr, _ = data_transformation.initiate_data_transformation(
-            train_data,
-            test_data
-        )
-        model_trainer=ModelTrainer()
-        print(model_trainer.initiate_model_trainer(train_arr,test_arr))
-
-        logging.info("Data transformation completed")
-
-        print("Pipeline completed successfully")
-
-    except Exception as e:
-        logging.info("An error occurred")
-        raise Custom_Exception(e, sys)
+    app.run(host="0.0.0.0", port=8080, debug=True)
